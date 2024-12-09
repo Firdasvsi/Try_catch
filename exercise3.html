@@ -25,24 +25,24 @@
                 try {
                     fn();
                 } catch (error) {
-                    // Проверяем, является ли ошибка локальной
+                  
                     if (error.name === 'LocalError') {
                         console.log('Обнаружена локальная ошибка');
                         console.error(error);
                     } else {
-                        // Если это глобальная ошибка, пробрасываем её выше
+                       
                         throw error;
                     }
                 }
             } catch (error) {
-                // Обрабатываем глобальную ошибку
+                
                 console.log('Обнаружена глобальная ошибка');
                 console.error(error);
             }
         }
 
-        testErrorScope(localError);  // Локальная ошибка
-        testErrorScope(globalError); // Глобальная ошибка
+        testErrorScope(localError); 
+        testErrorScope(globalError); 
     </script>
 </body>
 
