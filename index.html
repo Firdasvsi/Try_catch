@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Try-Catch Example</title>
+</head>
+
+<body>
+    <h1>Try-Catch Error Handling Example</h1>
+    <p>Откройте консоль браузера, чтобы увидеть результат работы кода.</p>
+
+    <script>
+        function hello() {
+            console.log('Skill');
+        }
+
+        try {
+            hello(); // вызов существующей функции
+        } catch (error) {
+            console.error('Error caught:', error);
+        }
+
+        console.log('complete');
+
+    </script>
+    <script>
+        function greeting() {
+            const username = prompt("Введите имя пользователя");
+
+    
+            if (!username) {
+                throw new Error("Имя обязательно для заполнения");
+            }
+
+    
+            alert(`Добро пожаловать, ${username}!`);
+        }
+
+        try {
+            greeting();
+        } catch (error) {
+        
+            alert(error.message);
+        }
+    </script>
+    
+</body>
+
+</html>

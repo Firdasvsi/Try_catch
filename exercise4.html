@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Проверка сети</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f5f5f5;
+        }
+
+        form {
+            max-width: 400px;
+            width: 100%;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        #network-error-button {
+            display: none;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            width: 400px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        #network-error-button:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+
+<body>
+    <form>
+        <label for="name">Ваше имя</label>
+        <input type="text" id="name" placeholder="Василий" />
+        <label for="email">Эл. почта</label>
+        <input type="email" id="email" placeholder="example@mail.com" />
+        <button type="submit">Войти</button>
+    </form>
+
+    <div id="network-error-button">Неполадки с сетью</div>
+
+    <script>
+        const API_URL = 'https://sb-film.skillbox.cc/ping';
+        const networkErrorButton = document.getElementById('network-error-button');
+
+        async function checkNetworkStatus() {
+            try {
+                const startTime = Date.now();
+                const response = await fetch(API_URL, { method: 'POST' });
+
+                if (!response.ok) {
+                    throw new Error('Ошибка сети');
+                }
+
+                const duration = Date.now() - startTime;
+
+                // Скрываем кнопку "Неполадки с сетью"
+                networkErrorButton.style.display = 'none';
+
+                // Проверяем, медленное ли соединение
+                if (duration > 500) {
+                    console.log('Медленное соединение');
+                }
+            } catch (error) {
+                // Показываем кнопку "Неполадки с сетью"
+                networkErrorButton.style.display = 'block';
+            }
+        }
+
+        // Запуск проверки сети каждые 5 секунд
+        setInterval(checkNetworkStatus, 5000);
+
+        // Первая проверка при загрузке страницы
+        checkNetworkStatus();
+
+        // Функционал кнопки "Неполадки с сетью"
+        networkErrorButton.addEventListener('click', () => {
+            console.log('Повторная проверка сети...');
+            checkNetworkStatus();
+        });
+    </script>
+</body>
+
+</html>
