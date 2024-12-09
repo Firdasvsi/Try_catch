@@ -103,26 +103,22 @@
 
                 const duration = Date.now() - startTime;
 
-                // Скрываем кнопку "Неполадки с сетью"
+              
                 networkErrorButton.style.display = 'none';
 
-                // Проверяем, медленное ли соединение
                 if (duration > 500) {
                     console.log('Медленное соединение');
                 }
             } catch (error) {
-                // Показываем кнопку "Неполадки с сетью"
+                
                 networkErrorButton.style.display = 'block';
             }
         }
 
-        // Запуск проверки сети каждые 5 секунд
         setInterval(checkNetworkStatus, 5000);
 
-        // Первая проверка при загрузке страницы
         checkNetworkStatus();
 
-        // Функционал кнопки "Неполадки с сетью"
         networkErrorButton.addEventListener('click', () => {
             console.log('Повторная проверка сети...');
             checkNetworkStatus();
